@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Weg in die deutsche Teilung (1945–1949)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        darkbg: '#0f172a',
+                        darkcard: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-brand-600/20 text-brand-500 rounded-xl border border-brand-500/30">
+                    <i class="fa-solid font-bold fa-timeline text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">Der Weg in die deutsche Teilung</h1>
+                    <p class="text-xs text-slate-400">Historische Ereignisleiste 1945 – 1949</p>
+                </div>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3">
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" placeholder="Ereignis suchen..." 
+                        class="w-full pl-9 pr-4 py-2 bg-slate-800/80 border border-slate-700 rounded-lg text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition">
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tags Bar -->
+        <div class="max-w-6xl mx-auto px-4 pb-3 sm:px-6 lg:px-8 flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span class="text-xs text-slate-400 font-medium mr-1 flex items-center gap-1">
+                <i class="fa-solid fa-filter text-xs"></i> Filter:
+            </span>
+            <button onclick="filterEvents('all')" id="btn-all" class="filter-btn active-filter px-3 py-1 text-xs font-medium rounded-full border transition-all duration-200 bg-brand-600 border-brand-500 text-white shadow-sm">
+                Alle
+            </button>
+            <button onclick="filterEvents('Politik')" id="btn-Politik" class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all duration-200">
+                <i class="fa-solid fa-landmark mr-1 text-red-400"></i> Politik
+            </button>
+            <button onclick="filterEvents('Wirtschaft')" id="btn-Wirtschaft" class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all duration-200">
+                <i class="fa-solid fa-coins mr-1 text-emerald-400"></i> Wirtschaft & Währung
+            </button>
+            <button onclick="filterEvents('Konflikt')" id="btn-Konflikt" class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all duration-200">
+                <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-400"></i> Konflikt & Blockade
+            </button>
+            <button onclick="filterEvents('Staatsgründung')" id="btn-Staatsgründung" class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all duration-200">
+                <i class="fa-solid fa-flag mr-1 text-blue-400"></i> Staatsgründung
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8 flex-grow w-full">
+        
+        <!-- Timeline Hero Stats / Info -->
+        <div class="mb-10 bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6 shadow-md backdrop-blur-sm">
+            <div class="space-y-1">
+                <h2 class="text-lg font-semibold text-white">Vom Ende des II. Weltkriegs zur doppelten Staatsgründung</h2>
+                <p class="text-sm text-slate-400 max-w-2xl">
+                    Klicke auf die einzelnen Ereigniskarten, um erweiterte historische Hintergründe, Zusammenhänge und Quellenhinweise zu erfahren.
+                </p>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-900/80 px-4 py-3 rounded-xl border border-slate-700/50">
+                <div class="text-center">
+                    <span class="block text-xl font-bold text-brand-500" id="eventCount">0</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Ereignisse</span>
+                </div>
+                <div class="h-8 w-px bg-slate-700"></div>
+                <div class="text-center">
+                    <span class="block text-xl font-bold text-amber-400">4 Jahre</span>
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Zeitraum</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Timeline Vertical Section -->
+        <div class="relative wrap overflow-hidden p-2 md:p-6">
+            <!-- Central Line with Dynamic Progress Gradient -->
+            <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-slate-800 -translate-x-1/2 rounded-full">
+                <div id="timelineProgress" class="w-full bg-gradient-to-b from-brand-500 via-indigo-500 to-emerald-400 transition-all duration-300" style="height: 100%;"></div>
+            </div>
+
+            <!-- Timeline Events Container -->
+            <div id="timelineContainer" class="space-y-8 relative">
+                <!-- Javascript will render timeline items here -->
+            </div>
+        </div>
+
+        <!-- Empty Search Result -->
+        <div id="noResults" class="hidden text-center py-16">
+            <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500 text-2xl">
+                <i class="fa-solid fa-ghost"></i>
+            </div>
+            <h3 class="text-lg font-medium text-slate-300">Keine Ereignisse gefunden</h3>
+            <p class="text-sm text-slate-500 mt-1">Versuche einen anderen Suchbegriff oder passe die Filter an.</p>
+        </div>
+    </main>
+
+    <!-- Modal for Detailed View -->
+    <div id="eventModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col transform scale-95 transition-transform duration-300" id="modalContainer">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-800 flex justify-between items-start sticky top-0 bg-slate-900/95 backdrop-blur z-10">
+                <div>
+                    <span id="modalCategory" class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 mb-2"></span>
+                    <h3 id="modalTitle" class="text-xl sm:text-2xl font-bold text-white"></h3>
+                    <p id="modalDate" class="text-sm text-brand-400 font-medium mt-1 flex items-center gap-1.5"></p>
+                </div>
+                <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50 text-slate-200 italic" id="modalSummary"></div>
+                
+                <div>
+                    <h4 class="text-xs uppercase tracking-wider font-semibold text-slate-400 mb-2">Ausführliche Beschreibung & Kontext</h4>
+                    <p id="modalDescription" class="whitespace-pre-line text-slate-300"></p>
+                </div>
+
+                <div id="modalImpactContainer" class="bg-slate-800/40 border border-slate-700/40 p-4 rounded-xl">
+                    <h4 class="text-xs uppercase tracking-wider font-semibold text-amber-400 mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i> Bedeutung für die Teilung
+                    </h4>
+                    <p id="modalImpact" class="text-slate-300"></p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/50 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-medium transition">
+                    Schließen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-12">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p>Interaktiver Geschichts-Zeitstrahl: Schulbuch-Zusammenfassung (1945–1949)</p>
+            <p class="text-slate-600">Erstellt für das Fach Geschichte • Frei hostbar via GitHub Pages, Vercel & Netlify</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and App Logic -->
+    <script>
+        // Array holding all historical events based on provided textbook context
+        const eventsData = [
+            {
+                id: 1,
+                date: "1945 – 1946",
+                title: "Aufteilung in Besatzungszonen & Gründung der Bizone",
+                category: "Politik",
+                categoryColor: "red",
+                icon: "fa-map-location-dot",
+                summary: "Deutschland wird von den Alliierten in vier Besatzungszonen aufgeteilt. USA und Großbritannien schließen ihre Zonen zur Bizone zusammen.",
+                description: "Nach der Kapitulation des Deutschen Reiches übernehmen die Siegermächte (USA, Großbritannien, Sowjetunion und Frankreich) die oberste Regierungsgewalt. \n\nUm die wirtschaftliche Not zu lindern, vereinbaren USA und Großbritannien die Zusammenlegung ihrer Besatzungszonen zur sogenannten Bizone (wirksam ab 1. Januar 1947). Obwohl dies offiziell nur als Verwaltungsmaßnahme bezeichnet wurde, stellte es bereits den ersten konkreten Schritt zum politischen Zusammenschluss des Westens dar.",
+                impact: "Erste organisatorische Trennung zwischen den westlichen Besatzungszonen und der sowjetischen Zone."
+            },
+            {
+                id: 2,
+                date: "März 1947",
+                title: "Verkündung der Truman-Doktrin",
+                category: "Politik",
+                categoryColor: "red",
+                icon: "fa-shield-halved",
+                summary: "US-Präsident Truman verkündet die Außenpolitik der 'Eindämmung' (Containment) gegen den sowjetischen Einfluss.",
+                description: "Beunruhigt über die Ausbreitung kommunistischer Systeme in Ost- und Mitteleuropa verkündet US-Präsident Harry S. Truman neue außenpolitische Leitlinien vor dem US-Kongress.\n\nDie Doktrin besagt, dass die USA allen freien Völkern beistehen werden, die sich der Unterwerfung durch bewaffnete Minderheiten oder äußeren Druck widersetzen. Ziel war die Eindämmung (Containment) des weltweiten Einflusses der Sowjetunion.",
+                impact: "Beginn des Kalten Krieges als ideologischer und politischer Leitfaden der USA."
+            },
+            {
+                id: 3,
+                date: "5. Juni 1947",
+                title: "Ankündigung des Marshallplans (ERP)",
+                category: "Wirtschaft",
+                categoryColor: "emerald",
+                icon: "fa-hand-holding-dollar",
+                summary: "Die USA bieten ein milliardenschweres Wiederaufbauprogramm (European Recovery Program) für Europa an.",
+                description: "US-Außenminister George C. Marshall kündigt das European Recovery Program (ERP) an. Die USA befürchten, dass wirtschaftliche Not in Europa den Nährboden für den Kommunismus verstärken könnte.\n\nDer Marshallplan bietet großzügige Kredite, Sachgüter und Lebensmittel für den Wiederaufbau aller europäischen Staaten an. Für die USA bedeutete dies auch die Schaffung zukünftiger Absatzmärkte für amerikanische Waren.",
+                impact: "Wirtschaftlicher Anschub für Westeuropa; verschärft den Konflikt mit Moskau, da die UdSSR die Teilnahme verbot."
+            },
+            {
+                id: 4,
+                date: "September 1947",
+                title: "Gründung des Kominform",
+                category: "Politik",
+                categoryColor: "red",
+                icon: "fa-bullhorn",
+                summary: "Die Sowjetunion gründet das Kommunistische Informationsbüro als Reaktion auf den Marshallplan.",
+                description: "Als Antwort auf die US-Containment-Politik und den Marshallplan gründet die Sowjetunion das 'Kommunistische Informationsbüro' (Kominform).\n\nDiesem Bündnis treten alle kommunistisch geführten Länder Ost- und Mitteleuropas bei. Damit wird die unangefochtene Führungsrolle Moskaus über die kommunistischen Parteien in Europa gefestigt.",
+                impact: "Ideologische Blockbildung und Straffung der sowjetischen Kontrolle über Osteuropa."
+            },
+            {
+                id: 5,
+                date: "Ende 1947",
+                title: "Scheitern der Londoner Außenministerkonferenz",
+                category: "Konflikt",
+                categoryColor: "amber",
+                icon: "fa-handshake-slash",
+                summary: "Die Vier Mächte können sich nicht auf eine gemeinsame Deutschlandpolitik verständigen.",
+                description: "Die Konferenz der Außenminister der vier Siegermächte in London bricht ende 1947 ergebnislos ab. Es wird klar, dass keine Einigkeit mehr über eine gemeinsame Zukunft oder Besatzungspolitik für ganz Deutschland besteht.\n\nDie Westmächte beschließen daraufhin, die Entwicklung in Westdeutschland ohne die Sowjetunion voranzutreiben.",
+                impact: "Endgültiges Aus für eine abgestimmte gesamtdeutsche Politik der Siegermächte."
+            },
+            {
+                id: 6,
+                date: "Februar 1948",
+                title: "Sechsmächtekonferenz in London & COMECON",
+                category: "Politik",
+                categoryColor: "red",
+                icon: "fa-users-gear",
+                summary: "Beschluss zur Gründung eines westdeutschen Teilstaates; im Osten entsteht der COMECON.",
+                description: "Die drei Westmächte und die Benelux-Staaten tagen in London ohne Einladung der UdSSR und vereinbaren die Gründung eines westdeutschen Teilstaates sowie einen militärischen Beistandspakt.\n\nZeitgleich übernehmen Kommunisten in Prag die Macht (Februarumsturz). Die Sowjetunion gründet als Antwort auf den Marshallplan den Rat für gegenseitige Wirtschaftshilfe (COMECON) für den Ostblock.",
+                impact: "Europa und Deutschland spalten sich nun auch strukturell in zwei getrennte Wirtschafts- und Politikblöcke."
+            },
+            {
+                id: 7,
+                date: "20. März 1948",
+                title: "Ende des Alliierten Kontrollrates",
+                category: "Konflikt",
+                categoryColor: "amber",
+                icon: "fa-building-columns",
+                summary: "Die Sowjetunion verlässt den Alliierten Kontrollrat in Berlin aus Protest.",
+                description: "Aus Protest gegen die Londoner Sechsmächtekonferenz legt der sowjetische Vertretende die Arbeit im Alliierten Kontrollrat nieder.\n\nDamit existiert kein funktionierendes gesamtdeutsches Verwaltungsorgan der vier Siegermächte mehr. Die Entfremdung der Besatzungsmächte ist vollzogen.",
+                impact: "Zusammenbruch der alliierten Gesamtkontrolle über Deutschland."
+            },
+            {
+                id: 8,
+                date: "20. / 23. Juni 1948",
+                title: "Doppelte Währungsreform (Trizone & SBZ)",
+                category: "Wirtschaft",
+                categoryColor: "emerald",
+                icon: "fa-money-bill-transfer",
+                summary: "Einführung der D-Mark in den Westzonen (Trizone) und der Ostmark in der Sowjetzone.",
+                description: "Am 20. Juni 1948 führen die Westmächte in der Trizone (Bizone + französische Zone) die 'Deutsche Mark' (DM) ein. Die Schaufenster füllen sich schlagartig mit Waren, die Inflation endet.\n\nDie Sowjetunion wirft dem Westen Bruch des Potsdamer Abkommens vor und führt nur drei Tage später (23. Juni) in der Sowjetischen Besatzungszone (SBZ) eine eigene Währungsreform durch.",
+                impact: "Endgültige wirtschaftliche Spaltung Deutschlands in zwei Währungsräume."
+            },
+            {
+                id: 9,
+                date: "24. Juni 1948 – 12. Mai 1949",
+                title: "Berlin-Blockade & Die Luftbrücke",
+                category: "Konflikt",
+                categoryColor: "amber",
+                icon: "fa-plane-departure",
+                summary: "Die UdSSR sperrt alle Zufahrtswege nach West-Berlin. Die Westmächte versorgen die Stadt per Luftbrücke.",
+                description: "Um die Einführung der West-Mark in ganz Berlin zu verhindern, blockiert die Sowjetunion alle Land- und Wasserwege nach West-Berlin. Die Stadt ist von Strom und Versorgung abgeschnitten.\n\nDie Westmächte reagieren mit einer beispiellosen Luftbrücke: Über 11 Monate versorgen amerikanische und britische 'Rosinenbomber' im Minutentakt 2,2 Millionen West-Berliner mit Nahrung und Brennstoffen.",
+                impact: "Erste große Hülle des Kalten Krieges. West-Berlin wird zum Symbol des Freiheitswillens des Westens."
+            },
+            {
+                id: 10,
+                date: "Mai & Oktober 1949",
+                title: "Doppelte Staatsgründung (BRD & DDR)",
+                category: "Staatsgründung",
+                categoryColor: "blue",
+                icon: "fa-flag",
+                summary: "Mit der Verkündung des Grundgesetzes entsteht die BRD (Mai), gefolgt von der Gründung der DDR (Oktober).",
+                description: "Am 12. Mai 1949 gibt die UdSSR die Berlin-Blockade ergebnislos auf. Am 23. Mai 1949 wird in Bonn das Grundgesetz verkündet – die Bundesrepublik Deutschland (BRD) ist gegründet.\n\nAls Reaktion darauf konstituiert sich am 7. Oktober 1949 in Ost-Berlin die Deutsche Demokratische Republik (DDR).",
+                impact: "Die formelle und staatliche Teilung Deutschlands in zwei Staaten ist für 40 Jahre besiegelt."
+            }
+        ];
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        // Category Color Mapping Helper
+        function getCategoryStyle(category) {
+            switch(category) {
+                case 'Politik':
+                    return { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/30', dot: 'bg-red-500' };
+                case 'Wirtschaft':
+                    return { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/30', dot: 'bg-emerald-500' };
+                case 'Konflikt':
+                    return { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/30', dot: 'bg-amber-500' };
+                case 'Staatsgründung':
+                    return { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/30', dot: 'bg-blue-500' };
+                default:
+                    return { bg: 'bg-brand-500/10', text: 'text-brand-400', border: 'border-brand-500/30', dot: 'bg-brand-500' };
+            }
+        }
+
+        // Render Timeline
+        function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            const noResults = document.getElementById('noResults');
+            container.innerHTML = '';
+
+            const filteredEvents = eventsData.filter(event => {
+                const matchesFilter = (currentFilter === 'all' || event.category === currentFilter);
+                const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      event.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      event.date.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            document.getElementById('eventCount').textContent = filteredEvents.length;
+
+            if (filteredEvents.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filteredEvents.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const style = getCategoryStyle(item.category);
+
+                const itemHTML = `
+                    <div class="relative flex flex-col md:flex-row items-center cursor-pointer group" onclick="openModal(${item.id})">
+                        
+                        <!-- Timeline Dot Marker -->
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-9 h-9 rounded-full ${style.dot} text-slate-950 font-bold shadow-lg shadow-${style.dot}/30 group-hover:scale-125 transition-transform duration-300">
+                            <i class="fa-solid ${item.icon} text-sm"></i>
+                        </div>
+
+                        <!-- Content Card Left or Right -->
+                        <div class="w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10 md:text-right' : 'md:pl-10 md:ml-auto'}">
+                            <div class="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/70 hover:border-slate-500/60 rounded-2xl p-5 shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+                                
+                                <div class="flex flex-wrap items-center gap-2 mb-2 ${isEven ? 'md:justify-end' : 'md:justify-start'}">
+                                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${style.bg} ${style.text} ${style.border} border">
+                                        ${item.category}
+                                    </span>
+                                    <span class="text-xs font-bold text-slate-400">
+                                        <i class="fa-regular fa-calendar mr-1"></i>${item.date}
+                                    </span>
+                                </div>
+
+                                <h3 class="text-lg font-bold text-white group-hover:text-brand-400 transition-colors">
+                                    ${item.title}
+                                </h3>
+
+                                <p class="text-xs text-slate-300 mt-2 line-clamp-2 leading-relaxed">
+                                    ${item.summary}
+                                </p>
+
+                                <div class="mt-4 flex items-center gap-1 text-xs font-semibold text-brand-400 ${isEven ? 'md:justify-end' : 'md:justify-start'}">
+                                    <span>Mehr Details lesen</span>
+                                    <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+        }
+
+        // Filter Logic
+        function filterEvents(category) {
+            currentFilter = category;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'border-brand-500', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+                activeBtn.classList.add('bg-brand-600', 'border-brand-500', 'text-white', 'shadow-sm');
+            }
+
+            renderTimeline();
+        }
+
+        // Search Input Listener
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderTimeline();
+        });
+
+        // Modal Controls
+        function openModal(id) {
+            const eventItem = eventsData.find(item => item.id === id);
+            if (!eventItem) return;
+
+            document.getElementById('modalTitle').textContent = eventItem.title;
+            document.getElementById('modalDate').innerHTML = `<i class="fa-regular fa-calendar"></i> ${eventItem.date}`;
+            document.getElementById('modalCategory').textContent = eventItem.category;
+            document.getElementById('modalSummary').textContent = `„${eventItem.summary}“`;
+            document.getElementById('modalDescription').textContent = eventItem.description;
+            document.getElementById('modalImpact').textContent = eventItem.impact;
+
+            const modal = document.getElementById('eventModal');
+            const container = document.getElementById('modalContainer');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('eventModal');
+            const container = document.getElementById('modalContainer');
+            
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Close Modal when clicking background overlay
+        document.getElementById('eventModal').addEventListener('click', (e) => {
+            if (e.target.id === 'eventModal') {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initial Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderTimeline();
+        });
+    </script>
+</body>
+</html>
